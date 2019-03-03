@@ -10,4 +10,14 @@ def is_bracket_correct(input_string):
     :param input_string: строка, содержащая 6 типов скобок (,),[,],{,}
     :return: True or False
     '''
-    raise NotImplementedError
+    bracket = {"(": ")", "{": "}", "[": "]"}
+    spisok = []
+    for c in input_string:
+        if c in "({[":
+            spisok.append(c)
+        elif c in "}])":
+            if len(spisok) != 0 and bracket[spisok[-1]] == c:
+                spisok.pop()
+            else:
+                return False
+    return True
