@@ -10,7 +10,8 @@ def calculator(x, y, operator):
     :param operator: 4 оператора: plus, minus, mult, divide
     :return: результат операции или None, если операция не выполнима
     '''
-    if (isinstance(x, int) or isinstance(x, float)) and (isinstance(y, int) or isinstance(y, float)):
+    if (isinstance(x, int) or isinstance(x, float)) and \
+            (isinstance(y, int) or isinstance(y, float)):
         if operator == "plus" or operator == "+":
             return x + y
         elif operator == "minus" or operator == "-":
