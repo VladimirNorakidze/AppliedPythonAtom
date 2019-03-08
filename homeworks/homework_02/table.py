@@ -10,4 +10,5 @@ if __name__ == '__main__':
     data, json_status = import_data.opening(filename)
     if not json_status:
         data = processing.data_to_json(data)
-    table_creator.creator(data)
+    if processing.check_data(data):
+        table_creator.creator(data)
