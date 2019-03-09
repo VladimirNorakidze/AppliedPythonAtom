@@ -2,25 +2,45 @@
 # coding: utf-8
 
 
-class Heap():
+class Heap(object):
 
     def __init__(self, array):
-        pass
+        self.heap = array[:]
+        self.build_heap()
+
+    def sift_down(self, i):
+        left = 2 * i + 1
+        right = 2 * i + 2
+        largest = i
+        if (left < len(self.heap)) \
+                and comparator_d(self.heap[left], self.heap[largest]):
+            largest = left
+        if (right < len(self.heap)) \
+                and comparator_d(self.heap[right], self.heap[largest]):
+            largest = right
+        if largest != i:
+            self.heap[i], self.heap[largest] = self.heap[largest], self.heap[i]
+            self.sift_down(largest)
 
     def add(self, elem_with_priority):
-        pass
+        self.heap.append(elem_with_priority)
+        self.build_heap()
 
     def build_heap(self):
-        pass
+        length = len(self.heap) // 2
+        for i in range(length, -1, -1):
+            self.sift_down(i)
 
 
 class MaxHeap(Heap):
 
     def __init__(self, array):
-        raise NotImplementedError
+        super().__init__(array)
 
     def extract_maximum(self):
-        pass
+        result = self.heap.pop(0)
+        self.build_heap()
+        return result
 
 
 def comparator_d(x, y):

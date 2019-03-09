@@ -5,21 +5,23 @@ import json
 
 
 def opening(filename):
-    coding = ""
-    if "cp1251" in filename.lower():
-        coding = "cp1251"
-    elif "utf8" in filename.lower():
-        coding = "utf8"
-    elif "utf16" in filename:
-        coding = "utf16"
-    try:
-        with open(filename, "r", encoding=coding) as f:
-                data = json.load(f)
-                json_status = True
-    except json.decoder.JSONDecodeError:
-        with open(filename, "r", encoding=coding) as f:
-            data = f.read()
-            json_status = False
-    except FileNotFoundError:
-        raise FileNotFoundError("Файл не валиден")
+    encoding = ["utf8", "cp1251",  "utf16", "ASCII"]
+    json_status = False
+    for enc in encoding:
+        try:
+            with open(filename, "r", encoding=enc) as f:
+                    data = json.load(f)
+                    json_status = True
+                    break
+        except json.decoder.JSONDecodeError:
+            with open(filename, "r", encoding=enc) as f:
+                data = f.read()
+                json_status = False
+                break
+        except FileNotFoundError:
+            raise FileNotFoundError("Файл не валиден")
+        except UnicodeDecodeError:
+            continue
+    else:
+        raise UnicodeDecodeError("Неизвестная кодировка")
     return data, json_status
