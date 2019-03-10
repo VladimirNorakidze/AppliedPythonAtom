@@ -22,14 +22,16 @@ def line_creator(func):
         head_link = (max_link + 4 - len("Ссылка")) // 2
         head_tag = (max_tag + 4 - len("Теги")) // 2
         head_mark = 2
-        head_str += "|" + " "*head_name + "Название" + " "*head_name + \
-                    "|" + " "*head_link + "Ссылка" + " "*head_link + \
-                    "|" + " "*head_tag + "Теги" + " "*head_tag + \
-                    "|" + " "*head_mark + "Оценка" + " "*head_mark + "|"
-        print("-" * table_len)
-        print(head_str)
-        print(table_data, end="")
-        print("-" * table_len)
+        if table_len != 0:
+            head_str += "|" + " "*head_name + "Название" + " "*head_name + \
+                        "|" + " "*head_link + "Ссылка" + " "*head_link + \
+                        "|" + " "*head_tag + "Теги" + " "*head_tag + \
+                        "|" + " "*head_mark + "Оценка" + " "*head_mark + "|"
+        else:
+            head_str += "|  Название  |  Ссылка  |  Теги  |  Оценка  |"
+            table_len = len(head_str)
+        return "-" * table_len + "\n" + head_str + \
+               "\n" + table_data + "-" * table_len
     return wrapper
 
 

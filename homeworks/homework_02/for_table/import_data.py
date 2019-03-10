@@ -18,10 +18,10 @@ def opening(filename):
                 data = f.read()
                 json_status = False
                 break
-        except FileNotFoundError:
-            raise FileNotFoundError("Файл не валиден")
         except UnicodeDecodeError:
             continue
+        except FileNotFoundError:
+            return "file_not_found", False
     else:
         raise UnicodeDecodeError("Неизвестная кодировка")
     return data, json_status
