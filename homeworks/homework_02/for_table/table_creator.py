@@ -28,7 +28,8 @@ def line_creator(func):
                         "|" + " "*head_tag + keys[2] + " "*head_tag + \
                         "|" + " "*head_mark + keys[3] + " "*head_mark + "|"
         else:
-            head_str += f"|  {keys[0]}  |  {keys[1]}  |  {keys[2]}  |  {keys[3]}  |"
+            head_str += f"|  {keys[0]}  |  {keys[1]}  "
+            head_str += f"|  {keys[2]}  |  {keys[3]}  |"
             table_len = len(head_str)
         return "-" * table_len + "\n" + head_str + \
                "\n" + table_data + "-" * table_len
