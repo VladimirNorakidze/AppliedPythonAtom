@@ -6,23 +6,24 @@ def data_to_json(data):
     lines = data.split("\n")
     output_list = []
     a = {}
-    if len(lines[0].split("\t")) != 4 or lines[0] == "":
-        return False
+    if lines[0] != "":
+        keys = lines[0].split("\t")
+    length = len(keys)
     for i in range(1, len(lines)-1):
         line = lines[i]
         line_list = line.split("\t")
-        if len(line_list) != 4 or line_list[0] == "":
+        if len(line_list) != length or line_list[0] == "":
             return False
-        a = {"Название": line_list[0],
-             "Ссылка": line_list[1],
-             "Теги": line_list[2],
-             "Оценка": line_list[3]
+        a = {keys[0]: line_list[0],
+             keys[1]: line_list[1],
+             keys[2]: line_list[2],
+             keys[3]: line_list[3]
              }
         output_list.append(a)
-    return output_list
+    return output_list, keys
 
 
-def check_data(data, json_status=False):
+def check_data(data, keys, json_status=False):
     if not json_status:
         if data == "file_not_found":
             print("Файл не валиден")
@@ -33,7 +34,6 @@ def check_data(data, json_status=False):
         else:
             return True
     else:
-        keys = ["Название", "Ссылка", "Теги", "Оценка"]
         for var in data:
             for key in keys:
                 if key not in var:
