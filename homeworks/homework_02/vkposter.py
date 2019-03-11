@@ -89,8 +89,11 @@ class VKPoster:
         else:
             length = len(self.full_read_list)
         output_list = []
-        full_list = sorted(self.full_read_list.items(),
-                           key=lambda x: (x[1], x[0]), reverse=True)
-        for i in range(length):
-            output_list.append(full_list[i][0])
+        list_of_tuple = []
+        for posts, reads in self.full_read_list.items():
+            list_of_tuple.append((reads, posts))
+        h = MaxHeap(list_of_tuple)
+        while len(output_list) != length:
+            reads, post = h.extract_maximum()
+            output_list.append(post)
         return output_list
