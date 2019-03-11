@@ -2,6 +2,7 @@
 # coding: utf-8
 
 from .heap import MaxHeap
+import copy
 
 
 class FastSortedListMerger:
@@ -12,13 +13,21 @@ class FastSortedListMerger:
         принимает на вход список отсортированных непоубыванию списков и число
         на выходе выдает один список длинной k, отсортированных по убыванию
         """
-        full_list = []
         output_list = []
-        for var in list_of_lists:
-            full_list.extend(var)
-        full_list = list(map(lambda x: (x, x), full_list))
+        full_list = []
+        new_list = copy.deepcopy(list_of_lists)
+        for i, var in enumerate(new_list):
+            if isinstance(var, list) and var != []:
+                element = (var.pop(), i)
+                full_list.append(element)
+            elif isinstance(var, int):
+                element = (new_list.pop(i), -1)
+                full_list.append(element)
         h = MaxHeap(full_list)
-        length = k if k < len(h.heap) else len(h.heap)
-        for i in range(length):
-            output_list.append(h.extract_maximum()[0])
+        while len(output_list) != k and h.heap:
+            maximum, idx = h.extract_maximum()
+            output_list.append(maximum)
+            if idx != -1 and new_list[idx]:
+                element = (new_list[idx].pop(), idx)
+                h.add(element)
         return output_list
