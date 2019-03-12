@@ -9,7 +9,8 @@ if __name__ == '__main__':
     filename = sys.argv[1]
 
     data, json_status = import_data.opening(filename)
-    keys = ["Название", "Ссылка", "Теги", "Оценка"]
+    if json_status:
+        keys = list(data.keys())
     if not processing.check_data(data, json_status=False):
         sys.exit()
     if not json_status:
