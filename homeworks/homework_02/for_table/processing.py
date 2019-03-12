@@ -23,7 +23,7 @@ def data_to_json(data):
     return output_list, keys
 
 
-def check_data(data, keys, json_status=False):
+def check_data(data, keys=[], json_status=False):
     if not json_status:
         if data == "file_not_found":
             print("Файл не валиден")
@@ -35,8 +35,7 @@ def check_data(data, keys, json_status=False):
             return True
     else:
         for var in data:
-            for key in keys:
-                if key not in var:
-                    print("Формат не валиден")
-                    return False
+            if list(var.keys()) != keys:
+                print("Формат не валиден")
+                return False
     return True

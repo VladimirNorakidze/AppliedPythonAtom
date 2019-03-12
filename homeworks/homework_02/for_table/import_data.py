@@ -10,9 +10,9 @@ def opening(filename):
     for enc in encoding:
         try:
             with open(filename, "r", encoding=enc) as f:
-                    data = json.load(f)
-                    json_status = True
-                    break
+                data = json.load(f)
+                json_status = True
+                break
         except json.decoder.JSONDecodeError:
             with open(filename, "r", encoding=enc) as f:
                 data = f.read()
