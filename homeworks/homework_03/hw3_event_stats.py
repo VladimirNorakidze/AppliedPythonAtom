@@ -2,12 +2,14 @@
 # coding: utf-8
 
 
+import collections
+
+
 class TEventStats:
     FIVE_MIN = 300
 
     def __init__(self):
-        # TODO: реализовать метод
-        raise NotImplementedError
+        self.activity = collections.deque([])
 
     def register_event(self, user_id, time):
         """
@@ -16,8 +18,7 @@ class TEventStats:
         :param time: время (timestamp)
         :return: None
         """
-        # TODO: реализовать метод
-        raise NotImplementedError
+        self.activity.appendleft((user_id, time))
 
     def query(self, count, time):
         """
@@ -28,5 +29,12 @@ class TEventStats:
         :param time: время для рассчета интервала
         :return: activity_count: int
         """
-        # TODO: реализовать метод
-        raise NotImplementedError
+        users = []
+        for var in self.activity:
+            if time - var[1] > 300:
+                break
+            else:
+                users.append(var[0])
+        res = collections.Counter(users)
+        if count in res.values():
+            return list(res.values()).count(count)

@@ -2,6 +2,8 @@
 # coding: utf-8
 
 
+import time
+
 class LRUCacheDecorator:
 
     def __init__(self, maxsize, ttl):
@@ -12,6 +14,8 @@ class LRUCacheDecorator:
         '''
         # TODO инициализация декоратора
         #  https://www.geeksforgeeks.org/class-as-decorator-in-python/
+        self.maxsize = maxsize
+        self.ttl = ttl
         raise NotImplementedError
 
     def __call__(self, *args, **kwargs):

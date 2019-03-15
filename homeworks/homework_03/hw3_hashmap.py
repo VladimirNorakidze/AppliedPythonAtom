@@ -14,14 +14,14 @@ class HashMap:
             :param key: ключ
             :param value: значение
             '''
+            self.key = key
+            self.value = value
 
         def get_key(self):
-            # TODO возвращаем ключ
-            raise NotImplementedError
+            return self.key
 
         def get_value(self):
-            # TODO возвращаем значение
-            raise NotImplementedError
+            return self.value
 
         def __eq__(self, other):
             # TODO реализовать функцию сравнения

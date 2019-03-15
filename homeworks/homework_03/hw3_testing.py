@@ -2,6 +2,9 @@
 # coding: utf-8
 
 
+import os
+
+
 class Requester:
     '''
     Какой-то класс, который умеет делать запросы
@@ -58,7 +61,28 @@ class MockOrdinaryFileWorker(OrdinaryFileWorker):
      если еще не создана
     '''
     def __init__(self):
-        raise NotImplementedError
+        self.dirpath = "tmpf/"
+        self.test_dir = "./homeworks/homework_03/test_dir/"
+        if not os.path.exists(self.dirpath):
+            os.mkdir(self.dirpath)
+
+    def transfer_to_remote(self, filename):
+        with open(self.test_dir + filename, "r") as f:
+            data = f.read()
+        with open(self.dirpath + filename + ".tmp", "w") as f:
+            f.write(data)
+
+    def transfer_to_local(self, filename):
+        with open(self.test_dir + filename + ".tmp", "r") as f:
+            data = f.read()
+        with open(self.dirpath + filename, "w") as f:
+            f.write(data)
+
+    def __del__(self):
+        if os.path.exists(self.dirpath):
+            for file in os.listdir(self.dirpath):
+                os.remove(self.dirpath + file)
+            os.rmdir(self.dirpath)
 
 
 class LLNode:
