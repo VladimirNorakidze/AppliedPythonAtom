@@ -31,10 +31,14 @@ class TEventStats:
         """
         users = []
         for var in self.activity:
-            if time - var[1] > 300:
-                break
-            else:
+            if time - self.FIVE_MIN <= var[1] <= time:
                 users.append(var[0])
+            else:
+                break
         res = collections.Counter(users)
         if count in res.values():
-            return list(res.values()).count(count)
+            result = list(res.values()).count(count)
+            print(result)
+            return result
+        else:
+            return 0
