@@ -36,4 +36,3 @@ def groupping_anagramms(words):
         return anagr_dict.values()
     else:
         return []
-
