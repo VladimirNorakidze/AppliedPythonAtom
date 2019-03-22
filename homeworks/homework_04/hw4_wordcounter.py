@@ -17,14 +17,14 @@ def word_count_inference(path_to_dir):
         специальный ключ "total" для суммы слов во всех файлах
     """
 
-    def func(q1, q2):
-        item = q1.get()
+    def func(q_1, q_2):
+        item = q_1.get()
         if item is not None:
             filename, path = item
             with open(path + "/" + filename, "r") as f:
                 obj = f.read().strip()
             num_words = len(obj.split())
-            q2.put((filename, num_words))
+            q_2.put((filename, num_words))
 
     manager = Manager()
     result = manager.dict()
