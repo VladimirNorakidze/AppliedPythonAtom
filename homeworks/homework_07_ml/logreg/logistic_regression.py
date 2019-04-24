@@ -41,7 +41,8 @@ class LogisticRegression:
                 for j in np.arange(self.weights.shape[1]):
                     for m in np.arange(y_train.shape[0]):
                         self.weights[i, j] -= self.lambda_coef * np.exp(x_train[m, :] @ self.weights[:, j]) *\
-                                              x_train[m, i] / np.sum(np.exp(x_train[m, :] @ self.weights)) + der_amend[i, j]
+                                              x_train[m, i] / np.sum(np.exp(x_train[m, :] @ self.weights)) +\
+                                              der_amend[i, j]
                         if j == y_train[m, 0]:
                             self.weights[i, j] += self.lambda_coef * x_train[m, i]
         self.learned = True
